@@ -28,11 +28,21 @@
 </head>
 <body>
     <!--dentro de app intento renderizar el componente avatar que cree-->
+    <h1>Women in Tech</h1>
     <div id="app">
-        <h1>Women in Tech</h1>
     </div>
     <script>
         const $app = document.getElementById('app');
+        const h = React.createElement;
+
+        const Avatar = params => {
+            const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
+            
+            return h("img", {src});
+        }
+
+        ReactDOM.render(h(Avatar, {id: 1}), $app);
+        /*Componente creado sin REACT
         //necesito que cada componente cada avatar cambie mediante la id que le paso
         const Avatar = params => {
             const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
@@ -50,7 +60,7 @@
            img.addEventListener('click', () =>{
                img.classList.toggle('disabled')
            })
-       })
+       })*/
        </script>
 
 </body>
