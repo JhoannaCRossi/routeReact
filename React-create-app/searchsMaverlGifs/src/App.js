@@ -1,33 +1,20 @@
 import React from 'react';
 import './App.css';
 import ListOfGifs from './components/ListOfGifs';
+import {Route, Link} from 'wouter';
 
 function App() {
   return (
     <div className="App">
       <section className="App-content">
-      {/*{
-        gifs.map(singleGif => 
-          <Gif 
-            key={singleGif.id}
-            title={singleGif.title} 
-            url={singleGif.url}
-            id={singleGif.id}  
-          />
-        )
-      }*/
-      /*puedo reducir codigo para no enviar el objeto completo
-          gifs.map(({id, title, url}) => 
-            <Gif 
-              id={id}  
-              key={id}
-              title={title} 
-              url={url}
-            />
-        )*/
-      /*O lo convierto en un componente la lista de gifs*/  
-      }
-      <ListOfGifs keyword="sabrina" />
+      <h1>App Gifs Marvel</h1>
+      <Link to='/gif/spiderman'>Gifs de Spiderman</Link>
+      <Link to='/gif/hulk'>Gifs de Hulk</Link>
+      <Link to='/gif/ironman'>Gifs de Ironman</Link>
+      <Link to='/gif/thor'>Gifs de Thor</Link>
+      <Link to='/gif/wanda'>Gifs de Wanda</Link>
+      <Link to='/gif/wolwerine'>Gifs de Wolwerine</Link>
+      <Route path="/gif/:keyword" component={ListOfGifs} />
       </section>
     </div>
   );

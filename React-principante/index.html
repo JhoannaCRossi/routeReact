@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        picture{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+        picture.is-small{
+            width: 50px;
+        }
+        picture.is-large{
+            width: 200px;
+        }
+        img{
+            box-shadow:  0 0 15px #999;
+            border-radius:  50%;
+            width: 100%;
+        }
+        img.disabled{
+            opacity: 0.3;
+        }
+    </style>
+    <!--libreria de react-->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!--react dom (todo el codigo que hace q react funcione en el navegador)-->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!--JSX-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <!--dentro de app intento renderizar el componente avatar que cree-->
+    <h1>Women in Tech</h1>
+    <div id="app">
+    </div>
+    <script type="text/babel">
+        const $app = document.getElementById('app');
+        const useState = React.useState;
+
+        const Avatar = ({id, name = 'Yolanda', size}) => {
+            
+            //como decir
+            //const state = useState(true);
+            //const enabled = state[0];
+            //const setEnabled = state[1]
+
+            //resumido
+            const [enabled, setEnabled] = useState(true);
+
+            const src = `https://randomuser.me/api/portraits/women/${id}.jpg`;
+            
+            
+            let pictureClassName = "";
+            if(size === "small"){
+                pictureClassName = "is-small";
+            }else if(size === "large"){
+                pictureClassName = "is-large";
+            }
+            
+            const imgClassName = enabled ? '' : 'disabled';
+            //sin jsx
+            //return h("img", {src});
+            
+            //con jsx
+            //return <img src={src}/>
+            return (
+                <picture className={pictureClassName}>
+                    {
+                        id ? (
+                            <img onClick={() => setEnabled(!enabled)} 
+                                className={imgClassName} 
+                                src={src}/>
+                                
+                                ) :
+                                <strong>Sin imagen</strong>
+                            }
+                    <span>{enabled ? name : "Desactivada"}</span>
+                </picture>
+        )};
+
+        ReactDOM.render(
+            <div>
+                <Avatar/>
+                <Avatar id={10} name='Ana' size='small'/>
+                <Avatar id={11} name= 'Carmen'/>
+                <Avatar id={42} size='large'/>
+            </div>,
+            $app
+        )
+
+        /*renderizar dos parametros sin JSX
+        ReactDOM.render(h('div', null, [h(Avatar, {id: 1}), h(Avatar, {id: 2})]), $app);
+        */
+        
+        /*Componente creado sin REACT
+        //necesito que cada componente cada avatar cambie mediante la id que le paso
+        const Avatar = params => {
+            const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
+            return `
+            <picture>
+                <img src="${src}" />
+                <strong>${params.name}</strong>
+            </picture> `
+        }
+        
+        $app.innerHTML += Avatar({id: 1, name: "Andrea"});
+        $app.innerHTML += Avatar({id: 2, name: "Camila"});
+        
+        $app.querySelectorAll('img').forEach(img =>{
+            img.addEventListener('click', () =>{
+                img.classList.toggle('disabled')
+            })
+        })*/
+        </script>
+</body>
+</html>

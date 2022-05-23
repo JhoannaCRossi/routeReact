@@ -8,5 +8,6 @@ export default function Gif({title, id, url}){
             <small>{id}</small>
             <img alt={title} src={url} />
         </a>
+        
     )
 }
